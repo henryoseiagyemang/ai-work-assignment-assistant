@@ -88,20 +88,20 @@ export default function ReviewScreen({
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900">Review & Assign</h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <h2 className="text-2xl font-bold text-white">Review & Assign</h2>
+          <p className="mt-1 text-sm text-slate-400">
             Work items grouped by theme. Approve the proposed assignment or
             override with someone else from the directory.
           </p>
         </div>
         <div className="flex items-center gap-2 text-sm">
-          <span className="badge bg-primary-100 text-primary-700">
+          <span className="badge bg-primary-500/15 text-primary-300">
             {pendingCount} pending
           </span>
-          <span className="badge bg-accent-100 text-accent-700">
+          <span className="badge bg-accent-500/15 text-accent-300">
             {approvedCount} approved
           </span>
-          <span className="badge bg-warning-100 text-warning-700">
+          <span className="badge bg-warning-500/15 text-warning-300">
             {overriddenCount} overridden
           </span>
         </div>
@@ -115,30 +115,28 @@ export default function ReviewScreen({
             <div key={theme} className="card overflow-hidden">
               <button
                 onClick={() => toggleTheme(theme)}
-                className="flex w-full items-center justify-between border-b border-slate-100 bg-slate-50/80 px-5 py-3 text-left transition-colors hover:bg-slate-50"
+                className="flex w-full items-center justify-between border-b border-ink-200 bg-ink-300/60 px-5 py-3 text-left transition-colors hover:bg-ink-300"
               >
                 <div className="flex items-center gap-2">
                   {collapsed ? (
-                    <ChevronRight size={18} className="text-slate-400" />
+                    <ChevronRight size={18} className="text-slate-500" />
                   ) : (
-                    <ChevronDown size={18} className="text-slate-400" />
+                    <ChevronDown size={18} className="text-slate-500" />
                   )}
-                  <h3 className="font-semibold text-slate-900">{theme}</h3>
+                  <h3 className="font-semibold text-white">{theme}</h3>
                 </div>
-                <span className="badge bg-slate-200 text-slate-600">
+                <span className="badge bg-ink-100 text-slate-400">
                   {items.length} item{items.length > 1 ? 's' : ''}
                 </span>
               </button>
 
               {!collapsed && (
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-ink-200">
                   {items.map((item) => {
                     const assignment = assignments.get(assignmentKey(projectId, item.id));
                     if (!assignment) return null;
-                    const proposed = personById(assignment.proposedPersonId);
                     const final = personById(assignment.finalPersonId);
-                    const isOverrideOpen =
-                      overrideTarget === item.id;
+                    const isOverrideOpen = overrideTarget === item.id;
 
                     return (
                       <div key={item.id} className="px-5 py-4">
@@ -146,14 +144,14 @@ export default function ReviewScreen({
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1">
                             <div className="flex items-center gap-2">
-                              <span className="font-mono text-xs font-semibold text-primary-600">
+                              <span className="font-mono text-xs font-semibold text-primary-400">
                                 {item.id}
                               </span>
-                              <h4 className="text-sm font-semibold text-slate-900">
+                              <h4 className="text-sm font-semibold text-white">
                                 {item.title}
                               </h4>
                             </div>
-                            <p className="mt-1 text-sm text-slate-600">
+                            <p className="mt-1 text-sm text-slate-400">
                               {item.description}
                             </p>
                           </div>
@@ -165,7 +163,7 @@ export default function ReviewScreen({
 
                         {/* Skills row */}
                         <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                          <span className="text-xs text-slate-400">
+                          <span className="text-xs text-slate-500">
                             Required skills:
                           </span>
                           {item.requiredSkills.map((skill) => (
@@ -175,14 +173,14 @@ export default function ReviewScreen({
 
                         {/* Requirement links */}
                         <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                          <span className="text-xs text-slate-400">
+                          <span className="text-xs text-slate-500">
                             From:
                           </span>
                           {item.requirementIds.map((rid) => (
                             <span
                               key={rid}
                               title={reqText(rid)}
-                              className="cursor-help border-b border-dashed border-slate-300 font-mono text-xs text-slate-500"
+                              className="cursor-help border-b border-dashed border-ink-200 font-mono text-xs text-slate-500"
                             >
                               {rid}
                             </span>
@@ -190,13 +188,13 @@ export default function ReviewScreen({
                         </div>
 
                         {/* Assignment + reasoning */}
-                        <div className="mt-3 rounded-lg bg-slate-50 p-3">
+                        <div className="mt-3 rounded-lg bg-ink-300/60 p-3">
                           <div className="flex items-start gap-2">
                             <Lightbulb
                               size={16}
-                              className="mt-0.5 flex-shrink-0 text-warning-500"
+                              className="mt-0.5 flex-shrink-0 text-primary-400"
                             />
-                            <p className="text-sm text-slate-700">
+                            <p className="text-sm text-slate-300">
                               {assignment.reason}
                             </p>
                           </div>
@@ -204,21 +202,19 @@ export default function ReviewScreen({
                           {/* Assigned person card */}
                           {final && (
                             <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
-                              <User size={14} className="text-slate-400" />
-                              <span className="font-medium text-slate-800">
+                              <User size={14} className="text-slate-500" />
+                              <span className="font-medium text-slate-200">
                                 {final.name}
                               </span>
                               <RoleBadge role={final.role} />
                               <LevelBar level={final.level} />
-                              <AvailabilityBadge
-                                status={final.availability}
-                              />
+                              <AvailabilityBadge status={final.availability} />
                             </div>
                           )}
 
                           {assignment.status === 'overridden' &&
                             assignment.overriddenReason && (
-                              <p className="mt-2 border-t border-slate-200 pt-2 text-xs text-warning-700">
+                              <p className="mt-2 border-t border-ink-200 pt-2 text-xs text-warning-300">
                                 Override reason: {assignment.overriddenReason}
                               </p>
                             )}
@@ -239,11 +235,9 @@ export default function ReviewScreen({
                               )}
                               <button
                                 onClick={() =>
-                                  setOverrideTarget(
-                                    isOverrideOpen ? null : item.id
-                                  )
+                                  setOverrideTarget(isOverrideOpen ? null : item.id)
                                 }
-                                className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                                className="flex items-center gap-1.5 rounded-lg border border-ink-200 bg-ink-300 px-3 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:bg-ink-200"
                               >
                                 <UserCog size={14} />
                                 Reassign
@@ -254,11 +248,9 @@ export default function ReviewScreen({
                           {assignment.status !== 'proposed' && (
                             <button
                               onClick={() =>
-                                setOverrideTarget(
-                                  isOverrideOpen ? null : item.id
-                                )
+                                setOverrideTarget(isOverrideOpen ? null : item.id)
                               }
-                              className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                              className="flex items-center gap-1.5 rounded-lg border border-ink-200 bg-ink-300 px-3 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:bg-ink-200"
                             >
                               <UserCog size={14} />
                               Change
@@ -267,7 +259,7 @@ export default function ReviewScreen({
 
                           {!assignment.proposedPersonId &&
                             assignment.status === 'proposed' && (
-                              <span className="flex items-center gap-1.5 text-sm text-danger-600">
+                              <span className="flex items-center gap-1.5 text-sm text-danger-400">
                                 <AlertCircle size={14} />
                                 No suitable match — needs manual assignment
                               </span>
@@ -322,20 +314,20 @@ function OverridePanel({
     item.requiredSkills.filter((s) => selected.skills.includes(s));
 
   return (
-    <div className="mt-3 rounded-lg border border-primary-200 bg-primary-50/50 p-4">
-      <h5 className="text-sm font-semibold text-slate-900">
+    <div className="mt-3 rounded-lg border border-primary-500/30 bg-primary-500/10 p-4">
+      <h5 className="text-sm font-semibold text-white">
         Reassign work item
       </h5>
 
       <div className="mt-3 space-y-3">
         <div>
-          <label className="text-xs font-medium text-slate-500">
+          <label className="text-xs font-medium text-slate-400">
             Select person
           </label>
           <select
             value={selectedId}
             onChange={(e) => setSelectedId(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-100"
+            className="mt-1 w-full rounded-lg border border-ink-200 bg-ink-400 px-3 py-2 text-sm text-white focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           >
             <option value="">— Select a person —</option>
             {people.map((p) => {
@@ -353,8 +345,8 @@ function OverridePanel({
         </div>
 
         {selected && (
-          <div className="flex flex-wrap items-center gap-2 rounded-lg bg-white p-2 text-sm">
-            <span className="font-medium text-slate-800">{selected.name}</span>
+          <div className="flex flex-wrap items-center gap-2 rounded-lg bg-ink-400 p-2 text-sm">
+            <span className="font-medium text-slate-200">{selected.name}</span>
             <RoleBadge role={selected.role} />
             <LevelBar level={selected.level} />
             <AvailabilityBadge status={selected.availability} />
@@ -368,7 +360,7 @@ function OverridePanel({
               ))}
             </div>
             {hasMatchedSkills && hasMatchedSkills.length === 0 && (
-              <span className="text-xs font-medium text-danger-600">
+              <span className="text-xs font-medium text-danger-400">
                 No direct skill match
               </span>
             )}
@@ -376,7 +368,7 @@ function OverridePanel({
         )}
 
         <div>
-          <label className="text-xs font-medium text-slate-500">
+          <label className="text-xs font-medium text-slate-400">
             Reason for reassignment
           </label>
           <input
@@ -384,14 +376,14 @@ function OverridePanel({
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             placeholder="e.g. Better domain knowledge, team balance, etc."
-            className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-100"
+            className="mt-1 w-full rounded-lg border border-ink-200 bg-ink-400 px-3 py-2 text-sm text-white placeholder:text-slate-600 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
         </div>
 
         <div className="flex justify-end gap-2">
           <button
             onClick={onCancel}
-            className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50"
+            className="rounded-lg border border-ink-200 bg-ink-300 px-3 py-1.5 text-sm font-medium text-slate-400 transition-colors hover:bg-ink-200"
           >
             Cancel
           </button>
@@ -400,7 +392,7 @@ function OverridePanel({
               selectedId && onConfirm(selectedId, reason || 'Manual override')
             }
             disabled={!selectedId}
-            className="rounded-lg bg-primary-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-700 disabled:opacity-50"
+            className="rounded-lg bg-primary-500 px-3 py-1.5 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400 disabled:opacity-50"
           >
             Confirm Reassignment
           </button>

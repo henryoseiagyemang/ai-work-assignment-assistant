@@ -143,8 +143,8 @@ export default function PeopleScreen({
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900">People Directory</h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <h2 className="text-2xl font-bold text-white">People Directory</h2>
+          <p className="mt-1 text-sm text-slate-400">
             Add, edit, and remove team members. People you add here are
             available for work item assignments.
           </p>
@@ -152,7 +152,7 @@ export default function PeopleScreen({
         <button
           onClick={openAddForm}
           disabled={showForm}
-          className="flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-700 disabled:opacity-50"
+          className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 px-4 py-2 text-sm font-medium text-ink-700 transition-all hover:from-primary-400 hover:to-primary-500 disabled:opacity-50"
         >
           <UserPlus size={16} />
           Add Person
@@ -160,7 +160,7 @@ export default function PeopleScreen({
       </div>
 
       {error && (
-        <div className="mb-4 flex items-start gap-2 rounded-lg border border-danger-200 bg-danger-50 px-4 py-3 text-sm text-danger-700">
+        <div className="mb-4 flex items-start gap-2 rounded-lg border border-danger-500/30 bg-danger-500/10 px-4 py-3 text-sm text-danger-300">
           <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
           {error}
         </div>
@@ -169,12 +169,12 @@ export default function PeopleScreen({
       {showForm && (
         <div className="mb-6 card p-5">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-semibold text-slate-900">
+            <h3 className="font-semibold text-white">
               {editingId ? 'Edit Person' : 'Add New Person'}
             </h3>
             <button
               onClick={closeForm}
-              className="rounded-lg p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
+              className="rounded-lg p-1 text-slate-500 transition-colors hover:bg-ink-200 hover:text-slate-300"
             >
               <X size={18} />
             </button>
@@ -182,7 +182,7 @@ export default function PeopleScreen({
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="text-xs font-medium text-slate-500">
+              <label className="text-xs font-medium text-slate-400">
                 Name
               </label>
               <input
@@ -190,18 +190,18 @@ export default function PeopleScreen({
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="e.g. Jane Smith"
-                className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-100"
+                className="mt-1 w-full rounded-lg border border-ink-200 bg-ink-500 px-3 py-2 text-sm text-white placeholder:text-slate-600 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               />
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-500">
+              <label className="text-xs font-medium text-slate-400">
                 Role
               </label>
               <select
                 value={form.role}
                 onChange={(e) => setForm({ ...form, role: e.target.value as Role })}
-                className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-100"
+                className="mt-1 w-full rounded-lg border border-ink-200 bg-ink-500 px-3 py-2 text-sm text-white focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               >
                 <option value="employee">Employee</option>
                 <option value="contractor">Contractor</option>
@@ -210,7 +210,7 @@ export default function PeopleScreen({
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-500">
+              <label className="text-xs font-medium text-slate-400">
                 Skill Level (1-5)
               </label>
               <div className="mt-2 flex items-center gap-3">
@@ -220,20 +220,20 @@ export default function PeopleScreen({
                   max={5}
                   value={form.level}
                   onChange={(e) => setForm({ ...form, level: Number(e.target.value) })}
-                  className="flex-1 accent-primary-600"
+                  className="flex-1 accent-primary-500"
                 />
                 <LevelBar level={form.level} />
               </div>
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-500">
+              <label className="text-xs font-medium text-slate-400">
                 Availability
               </label>
               <select
                 value={form.availability}
                 onChange={(e) => setForm({ ...form, availability: e.target.value as Availability })}
-                className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-100"
+                className="mt-1 w-full rounded-lg border border-ink-200 bg-ink-500 px-3 py-2 text-sm text-white focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               >
                 <option value="available">Available</option>
                 <option value="partially">Partially Available</option>
@@ -243,7 +243,7 @@ export default function PeopleScreen({
           </div>
 
           <div className="mt-4">
-            <label className="text-xs font-medium text-slate-500">
+            <label className="text-xs font-medium text-slate-400">
               Skills
             </label>
             <div className="mt-1 flex gap-2">
@@ -258,12 +258,12 @@ export default function PeopleScreen({
                   }
                 }}
                 placeholder="Type a skill and press Enter"
-                className="flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-100"
+                className="flex-1 rounded-lg border border-ink-200 bg-ink-500 px-3 py-2 text-sm text-white placeholder:text-slate-600 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
               />
               <button
                 onClick={addSkill}
                 type="button"
-                className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                className="rounded-lg border border-ink-200 bg-ink-300 px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-ink-200"
               >
                 Add
               </button>
@@ -280,7 +280,7 @@ export default function PeopleScreen({
                     <SkillTag skill={skill} />
                     <X
                       size={12}
-                      className="text-slate-400 transition-colors group-hover:text-danger-500"
+                      className="text-slate-500 transition-colors group-hover:text-danger-400"
                     />
                   </button>
                 ))}
@@ -291,14 +291,14 @@ export default function PeopleScreen({
           <div className="mt-5 flex justify-end gap-2">
             <button
               onClick={closeForm}
-              className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50"
+              className="rounded-lg border border-ink-200 bg-ink-300 px-4 py-2 text-sm font-medium text-slate-400 transition-colors hover:bg-ink-200"
             >
               Cancel
             </button>
             <button
               onClick={handleSubmit}
               disabled={saving || !form.name.trim()}
-              className="flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-700 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-primary-500 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400 disabled:opacity-50"
             >
               {saving ? (
                 <>
@@ -318,7 +318,7 @@ export default function PeopleScreen({
 
       {people.length === 0 && !showForm ? (
         <div className="card p-12 text-center">
-          <p className="text-lg font-medium text-slate-700">
+          <p className="text-lg font-medium text-slate-300">
             No people yet
           </p>
           <p className="mt-1 text-sm text-slate-500">
@@ -332,12 +332,12 @@ export default function PeopleScreen({
             return (
               <div
                 key={person.id}
-                className="card p-4 transition-shadow hover:shadow-md"
+                className="card card-hover p-4"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-slate-900">
+                      <span className="text-sm font-semibold text-white">
                         {person.name}
                       </span>
                       <RoleBadge role={person.role} />
@@ -359,7 +359,7 @@ export default function PeopleScreen({
                       onClick={() => openEditForm(person)}
                       disabled={isDeleting || saving}
                       title="Edit"
-                      className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-primary-600 disabled:opacity-50"
+                      className="rounded-lg p-1.5 text-slate-500 transition-colors hover:bg-ink-200 hover:text-primary-400 disabled:opacity-50"
                     >
                       <Pencil size={16} />
                     </button>
@@ -378,7 +378,7 @@ export default function PeopleScreen({
                         </button>
                         <button
                           onClick={() => setDeleteConfirm(null)}
-                          className="rounded-lg p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
+                          className="rounded-lg p-1 text-slate-500 transition-colors hover:bg-ink-200 hover:text-slate-300"
                         >
                           <X size={14} />
                         </button>
@@ -388,7 +388,7 @@ export default function PeopleScreen({
                         onClick={() => setDeleteConfirm(person.id)}
                         disabled={saving}
                         title="Delete"
-                        className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-danger-600 disabled:opacity-50"
+                        className="rounded-lg p-1.5 text-slate-500 transition-colors hover:bg-ink-200 hover:text-danger-400 disabled:opacity-50"
                       >
                         <Trash2 size={16} />
                       </button>
