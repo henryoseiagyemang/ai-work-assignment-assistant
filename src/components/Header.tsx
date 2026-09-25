@@ -83,17 +83,17 @@ export default function Header({
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 border-b border-ink-300 bg-ink-400/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-600 text-white">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary-400 to-primary-600 text-ink-700 shadow-md shadow-primary-600/20">
             <ClipboardCheck size={20} />
           </div>
           <div>
-            <h1 className="text-sm font-semibold text-slate-900 sm:text-base">
+            <h1 className="text-sm font-semibold text-white sm:text-base">
               Work Assignment Assistant
             </h1>
-            <p className="hidden text-xs text-slate-500 sm:block">
+            <p className="hidden text-xs text-slate-400 sm:block">
               Requirement-driven work decomposition & assignment
             </p>
           </div>
@@ -104,22 +104,22 @@ export default function Header({
           <div ref={dropdownRef} className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+              className="flex items-center gap-2 rounded-lg border border-ink-200 bg-ink-300 px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-ink-200"
             >
-              <FolderKanban size={16} className="text-primary-600" />
+              <FolderKanban size={16} className="text-primary-400" />
               <span className="hidden sm:inline max-w-[140px] truncate">
                 {selectedProject ? selectedProject.name : 'Select project'}
               </span>
-              <ChevronDown size={14} className="text-slate-400" />
+              <ChevronDown size={14} className="text-slate-500" />
             </button>
 
             {dropdownOpen && (
-              <div className="absolute right-0 top-full mt-1 w-64 rounded-lg border border-slate-200 bg-white shadow-lg">
+              <div className="absolute right-0 top-full mt-1 w-64 rounded-lg border border-ink-200 bg-ink-300 shadow-xl shadow-black/40">
                 {/* Project list */}
                 {!showCreateInput && !confirmDelete && (
                   <div className="max-h-64 overflow-y-auto p-1">
                     {projects.length === 0 && (
-                      <p className="px-3 py-2 text-sm text-slate-400">
+                      <p className="px-3 py-2 text-sm text-slate-500">
                         No projects yet. Create one below.
                       </p>
                     )}
@@ -130,10 +130,10 @@ export default function Header({
                           onSelectProject(p.id);
                           setDropdownOpen(false);
                         }}
-                        className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-slate-700 transition-colors hover:bg-slate-100"
+                        className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-slate-300 transition-colors hover:bg-ink-100"
                       >
                         {p.id === selectedProjectId ? (
-                          <Check size={14} className="text-primary-600" />
+                          <Check size={14} className="text-primary-400" />
                         ) : (
                           <span className="w-[14px]" />
                         )}
@@ -159,7 +159,7 @@ export default function Header({
                       }}
                       placeholder="Project name"
                       autoFocus
-                      className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-800 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-100"
+                      className="w-full rounded-lg border border-ink-200 bg-ink-400 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
                     />
                     <div className="mt-2 flex justify-end gap-2">
                       <button
@@ -167,14 +167,14 @@ export default function Header({
                           setShowCreateInput(false);
                           setNewProjectName('');
                         }}
-                        className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                        className="rounded-lg border border-ink-200 px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-ink-100"
                       >
                         Cancel
                       </button>
                       <button
                         onClick={handleCreate}
                         disabled={!newProjectName.trim()}
-                        className="rounded-lg bg-primary-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-primary-700 disabled:opacity-50"
+                        className="rounded-lg bg-primary-500 px-3 py-1.5 text-xs font-medium text-ink-700 hover:bg-primary-400 disabled:opacity-50"
                       >
                         Create
                       </button>
@@ -185,14 +185,14 @@ export default function Header({
                 {/* Delete confirmation */}
                 {confirmDelete && selectedProject && (
                   <div className="p-3">
-                    <p className="text-sm text-slate-700">
-                      Delete <span className="font-semibold">{selectedProject.name}</span>?
+                    <p className="text-sm text-slate-300">
+                      Delete <span className="font-semibold text-white">{selectedProject.name}</span>?
                       This removes all its requirements, work items, and assignments.
                     </p>
                     <div className="mt-2 flex justify-end gap-2">
                       <button
                         onClick={() => setConfirmDelete(false)}
-                        className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                        className="rounded-lg border border-ink-200 px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-ink-100"
                       >
                         Cancel
                       </button>
@@ -208,10 +208,10 @@ export default function Header({
 
                 {/* Footer actions */}
                 {!showCreateInput && !confirmDelete && (
-                  <div className="border-t border-slate-100 p-1">
+                  <div className="border-t border-ink-200 p-1">
                     <button
                       onClick={() => setShowCreateInput(true)}
-                      className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-primary-700 transition-colors hover:bg-primary-50"
+                      className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-primary-400 transition-colors hover:bg-ink-100"
                     >
                       <Plus size={14} />
                       New Project
@@ -219,7 +219,7 @@ export default function Header({
                     {selectedProject && (
                       <button
                         onClick={() => setConfirmDelete(true)}
-                        className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-danger-600 transition-colors hover:bg-danger-50"
+                        className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-danger-400 transition-colors hover:bg-ink-100"
                       >
                         <Trash2 size={14} />
                         Delete Project
@@ -250,8 +250,8 @@ export default function Header({
                   onClick={() => onNavigate(screen)}
                   className={`relative flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                     isActive
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                      ? 'bg-primary-500/15 text-primary-300'
+                      : 'text-slate-400 hover:bg-ink-200 hover:text-slate-200'
                   }`}
                 >
                   <Icon size={16} />
@@ -260,10 +260,10 @@ export default function Header({
                     <span
                       className={`flex h-5 min-w-[20px] items-center justify-center rounded-full px-1.5 text-xs font-semibold ${
                         screen === 'traceability'
-                          ? 'bg-danger-100 text-danger-700'
+                          ? 'bg-danger-500/20 text-danger-300'
                           : screen === 'review'
-                            ? 'bg-warning-100 text-warning-700'
-                            : 'bg-slate-200 text-slate-600'
+                            ? 'bg-warning-500/20 text-warning-300'
+                            : 'bg-ink-100 text-slate-400'
                       }`}
                     >
                       {badge}
@@ -277,10 +277,10 @@ export default function Header({
       </div>
 
       {/* Stats bar */}
-      <div className="border-t border-slate-100 bg-slate-50/80">
+      <div className="border-t border-ink-300 bg-ink-500/60">
         <div className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-1.5 text-xs text-slate-500 sm:px-6">
           {selectedProject && (
-            <span className="font-medium text-primary-700">
+            <span className="font-medium text-primary-400">
               {selectedProject.name}
             </span>
           )}
@@ -288,7 +288,7 @@ export default function Header({
           <span>{workItemCount} work items</span>
           <span>{peopleCount} people</span>
           {uncoveredCount > 0 && (
-            <span className="font-medium text-danger-600">
+            <span className="font-medium text-danger-400">
               {uncoveredCount} uncovered
             </span>
           )}

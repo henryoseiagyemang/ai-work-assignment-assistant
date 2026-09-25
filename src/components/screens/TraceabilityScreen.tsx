@@ -30,24 +30,24 @@ export default function TraceabilityScreen({
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-slate-900">Traceability Report</h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <h2 className="text-2xl font-bold text-white">Traceability Report</h2>
+        <p className="mt-1 text-sm text-slate-400">
           See which requirements have work items generated against them — and
           which don't.
         </p>
       </div>
 
       {/* Uncovered requirements — prominent */}
-      <div className="mb-6 overflow-hidden rounded-xl border-2 border-danger-200 bg-danger-50">
-        <div className="flex items-center gap-3 border-b border-danger-200 bg-danger-100/60 px-5 py-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-danger-500 text-white">
+      <div className="mb-6 overflow-hidden rounded-xl border border-danger-500/30 bg-danger-500/10">
+        <div className="flex items-center gap-3 border-b border-danger-500/20 bg-danger-500/15 px-5 py-4">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-danger-500/80 text-white">
             <AlertTriangle size={20} />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-danger-800">
+            <h3 className="text-lg font-bold text-danger-300">
               Uncovered Requirements
             </h3>
-            <p className="text-sm text-danger-700">
+            <p className="text-sm text-danger-300/80">
               {uncovered.length === 0
                 ? 'All requirements have at least one work item.'
                 : `${uncovered.length} requirement${uncovered.length > 1 ? 's' : ''} have no work items generated against them. This should not happen — try re-extracting the document.`}
@@ -56,18 +56,18 @@ export default function TraceabilityScreen({
         </div>
 
         {uncovered.length > 0 ? (
-          <div className="divide-y divide-danger-100">
+          <div className="divide-y divide-danger-500/10">
             {uncovered.map((req) => (
               <div
                 key={req.id}
-                className="flex items-start gap-3 px-5 py-3 hover:bg-danger-100/40"
+                className="flex items-start gap-3 px-5 py-3 hover:bg-danger-500/5"
               >
-                <span className="font-mono text-sm font-semibold text-danger-700">
+                <span className="font-mono text-sm font-semibold text-danger-300">
                   {req.id}
                 </span>
                 <div className="flex-1">
-                  <p className="text-sm text-slate-800">{req.text}</p>
-                  <p className="mt-1 text-xs text-danger-600">
+                  <p className="text-sm text-slate-300">{req.text}</p>
+                  <p className="mt-1 text-xs text-danger-400">
                     No work items generated for this requirement. Try re-extracting the document.
                   </p>
                 </div>
@@ -76,8 +76,8 @@ export default function TraceabilityScreen({
           </div>
         ) : (
           <div className="px-5 py-6 text-center">
-            <CheckCircle2 size={32} className="mx-auto mb-2 text-accent-500" />
-            <p className="text-sm text-slate-600">
+            <CheckCircle2 size={32} className="mx-auto mb-2 text-accent-400" />
+            <p className="text-sm text-slate-400">
               Full coverage — every requirement has at least one work item.
             </p>
           </div>
@@ -90,7 +90,7 @@ export default function TraceabilityScreen({
           <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
             Total Requirements
           </p>
-          <p className="mt-1 text-2xl font-bold text-slate-900">
+          <p className="mt-1 text-2xl font-bold text-white">
             {requirements.length}
           </p>
         </div>
@@ -98,7 +98,7 @@ export default function TraceabilityScreen({
           <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
             Covered
           </p>
-          <p className="mt-1 text-2xl font-bold text-accent-600">
+          <p className="mt-1 text-2xl font-bold text-accent-400">
             {covered.length}
           </p>
         </div>
@@ -107,13 +107,13 @@ export default function TraceabilityScreen({
             Coverage
           </p>
           <div className="mt-2 flex items-center gap-2">
-            <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-200">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-ink-100">
               <div
                 className="h-full rounded-full bg-accent-500 transition-all"
                 style={{ width: `${coveragePct}%` }}
               />
             </div>
-            <span className="text-sm font-semibold text-slate-700">
+            <span className="text-sm font-semibold text-slate-300">
               {coveragePct}%
             </span>
           </div>
@@ -122,12 +122,12 @@ export default function TraceabilityScreen({
 
       {/* Full traceability matrix */}
       <div className="card overflow-hidden">
-        <div className="border-b border-slate-200 px-5 py-3">
-          <h3 className="font-semibold text-slate-900">
+        <div className="border-b border-ink-200 px-5 py-3">
+          <h3 className="font-semibold text-white">
             Requirement → Work Item Mapping
           </h3>
         </div>
-        <div className="divide-y divide-slate-100">
+        <div className="divide-y divide-ink-200">
           {requirements.map((req) => {
             const items = itemsForReq(req.id);
             const isCovered = items.length > 0;
@@ -139,30 +139,30 @@ export default function TraceabilityScreen({
                 <div className="flex items-start gap-2 sm:w-1/2">
                   <span
                     className={`font-mono text-sm font-semibold ${
-                      isCovered ? 'text-primary-600' : 'text-danger-600'
+                      isCovered ? 'text-primary-400' : 'text-danger-400'
                     }`}
                   >
                     {req.id}
                   </span>
-                  <p className="text-sm text-slate-700">{req.text}</p>
+                  <p className="text-sm text-slate-300">{req.text}</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 sm:w-1/2">
                   {items.length > 0 ? (
                     items.map((item) => (
                       <div
                         key={item.id}
-                        className="flex items-center gap-2 rounded-lg bg-primary-50 px-3 py-1.5 text-xs"
+                        className="flex items-center gap-2 rounded-lg bg-primary-500/10 px-3 py-1.5 text-xs"
                       >
-                        <Link2 size={12} className="text-primary-500" />
-                        <span className="font-mono font-semibold text-primary-700">
+                        <Link2 size={12} className="text-primary-400" />
+                        <span className="font-mono font-semibold text-primary-300">
                           {item.id}
                         </span>
-                        <span className="text-slate-600">{item.title}</span>
+                        <span className="text-slate-400">{item.title}</span>
                         <DifficultyDots level={item.difficulty} />
                       </div>
                     ))
                   ) : (
-                    <span className="text-xs font-medium text-danger-500">
+                    <span className="text-xs font-medium text-danger-400">
                       No work items
                     </span>
                   )}
@@ -176,7 +176,7 @@ export default function TraceabilityScreen({
       <div className="mt-6 flex justify-end">
         <button
           onClick={onProceedToReview}
-          className="flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-700"
+          className="flex items-center gap-2 rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400"
         >
           Review & Assign Work Items
           <ArrowRight size={16} />

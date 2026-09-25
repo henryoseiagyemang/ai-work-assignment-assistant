@@ -117,7 +117,7 @@ export default function DocumentScreen({
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
       {!selectedProjectName && (
-        <div className="mb-6 flex items-start gap-3 rounded-lg border border-warning-200 bg-warning-50 px-4 py-3 text-sm text-warning-700">
+        <div className="mb-6 flex items-start gap-3 rounded-lg border border-warning-500/30 bg-warning-500/10 px-4 py-3 text-sm text-warning-300">
           <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
           <span>
             No project selected. Create or select a project from the header
@@ -128,14 +128,14 @@ export default function DocumentScreen({
 
       {/* Hero */}
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-slate-900">Document to Work Items</h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <h2 className="text-2xl font-bold text-white">Document to Work Items</h2>
+        <p className="mt-1 text-sm text-slate-400">
           Paste a requirements document or upload a .txt file. The AI
           extracts requirements and generates work items tagged with difficulty,
           required skills, and source requirement IDs.
         </p>
         {selectedProjectName && (
-          <p className="mt-2 text-sm font-medium text-primary-700">
+          <p className="mt-2 text-sm font-medium text-primary-400">
             Loading into project: {selectedProjectName}
           </p>
         )}
@@ -145,22 +145,22 @@ export default function DocumentScreen({
         {/* Input panel */}
         <div className="card p-5">
           <div className="mb-4 flex items-center gap-2">
-            <FileText size={18} className="text-primary-600" />
-            <h3 className="font-semibold text-slate-900">Input Document</h3>
+            <FileText size={18} className="text-primary-400" />
+            <h3 className="font-semibold text-white">Input Document</h3>
           </div>
 
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Paste your numbered requirements here, e.g.&#10;1. The system must...&#10;2. Users should be able to...&#10;3. ..."
-            className="h-64 w-full resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 font-mono text-sm text-slate-700 placeholder:text-slate-400 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-100"
+            className="h-64 w-full resize-none rounded-lg border border-ink-200 bg-ink-500 p-3 font-mono text-sm text-slate-300 placeholder:text-slate-600 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
 
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <button
               onClick={handleExtract}
               disabled={!text.trim() || extracting}
-              className="flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 px-4 py-2 text-sm font-medium text-ink-700 transition-all hover:from-primary-400 hover:to-primary-500 disabled:cursor-not-allowed disabled:opacity-50 disabled:saturate-50"
             >
               {extracting ? (
                 <>
@@ -175,7 +175,7 @@ export default function DocumentScreen({
               )}
             </button>
 
-            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50">
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-ink-200 bg-ink-300 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-ink-200">
               <Upload size={16} />
               Upload .txt
               <input
@@ -190,12 +190,12 @@ export default function DocumentScreen({
 
           {fileName && (
             <p className="mt-2 text-xs text-slate-500">
-              Uploaded file: <span className="font-medium">{fileName}</span>
+              Uploaded file: <span className="font-medium text-slate-400">{fileName}</span>
             </p>
           )}
 
           {usedFallback && (
-            <div className="mt-3 flex items-start gap-2 rounded-lg border border-warning-200 bg-warning-50 px-3 py-2 text-sm text-warning-700">
+            <div className="mt-3 flex items-start gap-2 rounded-lg border border-warning-500/30 bg-warning-500/10 px-3 py-2 text-sm text-warning-300">
               <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
               <span>
                 AI extraction unavailable — used the built-in text parser instead.
@@ -206,7 +206,7 @@ export default function DocumentScreen({
           )}
 
           {extractError && (
-            <div className="mt-3 rounded-lg border border-danger-200 bg-danger-50 px-3 py-2 text-sm text-danger-700">
+            <div className="mt-3 rounded-lg border border-danger-500/30 bg-danger-500/10 px-3 py-2 text-sm text-danger-300">
               {extractError}
             </div>
           )}
@@ -215,12 +215,12 @@ export default function DocumentScreen({
         {/* Extraction info */}
         <div className="card p-5">
           <div className="mb-4 flex items-center gap-2">
-            <Info size={18} className="text-slate-400" />
-            <h3 className="font-semibold text-slate-900">How It Works</h3>
+            <Info size={18} className="text-slate-500" />
+            <h3 className="font-semibold text-white">How It Works</h3>
           </div>
-          <ol className="space-y-3 text-sm text-slate-600">
+          <ol className="space-y-3 text-sm text-slate-400">
             <li className="flex gap-3">
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700">
+              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-500/15 text-xs font-semibold text-primary-400">
                 1
               </span>
               <span>
@@ -229,7 +229,7 @@ export default function DocumentScreen({
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700">
+              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-500/15 text-xs font-semibold text-primary-400">
                 2
               </span>
               <span>
@@ -238,7 +238,7 @@ export default function DocumentScreen({
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700">
+              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-500/15 text-xs font-semibold text-primary-400">
                 3
               </span>
               <span>
@@ -247,7 +247,7 @@ export default function DocumentScreen({
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700">
+              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-500/15 text-xs font-semibold text-primary-400">
                 4
               </span>
               <span>
@@ -264,22 +264,22 @@ export default function DocumentScreen({
       {currentReqs.length > 0 && (
         <div className="mt-6 card p-5">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-semibold text-slate-900">
+            <h3 className="font-semibold text-white">
               Extracted Requirements
               <span className="ml-2 text-sm font-normal text-slate-500">
                 from "{currentSource}"
               </span>
               {extracted?.usedLLM && (
-                <span className="ml-2 badge bg-accent-100 text-accent-700">
+                <span className="ml-2 badge bg-primary-500/15 text-primary-300">
                   AI-extracted
                 </span>
               )}
             </h3>
             <div className="flex items-center gap-3">
-              <span className="badge bg-primary-100 text-primary-700">
+              <span className="badge bg-primary-500/15 text-primary-300">
                 {currentReqs.length} requirements
               </span>
-              <span className="badge bg-accent-100 text-accent-700">
+              <span className="badge bg-accent-500/15 text-accent-300">
                 {currentItems.length} work items
               </span>
             </div>
@@ -289,32 +289,32 @@ export default function DocumentScreen({
             {currentReqs.map((req) => (
               <div
                 key={req.id}
-                className="flex items-start gap-3 rounded-lg bg-slate-50 px-3 py-2 text-sm"
+                className="flex items-start gap-3 rounded-lg bg-ink-300/60 px-3 py-2 text-sm"
               >
-                <span className="font-mono text-xs font-semibold text-primary-600">
+                <span className="font-mono text-xs font-semibold text-primary-400">
                   {req.id}
                 </span>
-                <span className="text-slate-700">{req.text}</span>
+                <span className="text-slate-300">{req.text}</span>
               </div>
             ))}
           </div>
 
           {extracted && extracted.items.length > 0 && (
-            <div className="mt-4 border-t border-slate-100 pt-4">
-              <h4 className="mb-2 text-sm font-semibold text-slate-700">
+            <div className="mt-4 border-t border-ink-200 pt-4">
+              <h4 className="mb-2 text-sm font-semibold text-slate-300">
                 Generated Work Items
               </h4>
               <div className="max-h-48 space-y-1.5 overflow-y-auto">
                 {extracted.items.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-start gap-3 rounded-lg bg-primary-50/50 px-3 py-2 text-sm"
+                    className="flex items-start gap-3 rounded-lg bg-primary-500/10 px-3 py-2 text-sm"
                   >
-                    <span className="font-mono text-xs font-semibold text-primary-600">
+                    <span className="font-mono text-xs font-semibold text-primary-400">
                       {item.id}
                     </span>
                     <div className="flex-1">
-                      <span className="text-slate-800">{item.title}</span>
+                      <span className="text-slate-300">{item.title}</span>
                       <span className="ml-2 text-xs text-slate-500">
                         Difficulty {item.difficulty} · {item.theme}
                       </span>
@@ -328,7 +328,7 @@ export default function DocumentScreen({
           {extracted ? (
             <button
               onClick={handleLoadExtracted}
-              className="mt-4 flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-700"
+              className="mt-4 flex items-center gap-2 rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400"
             >
               Load {extracted.reqs.length} requirements into tool
               <span aria-hidden>→</span>
@@ -336,7 +336,7 @@ export default function DocumentScreen({
           ) : (
             <button
               onClick={onProceedToTraceability}
-              className="mt-4 flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-700"
+              className="mt-4 flex items-center gap-2 rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400"
             >
               Continue to Traceability
               <span aria-hidden>→</span>

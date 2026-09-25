@@ -295,9 +295,9 @@ function App() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-ink-500">
         <div className="text-center">
-          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-primary-200 border-t-primary-600" />
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-ink-200 border-t-primary-500" />
           <p className="mt-3 text-sm text-slate-500">Loading...</p>
         </div>
       </div>
@@ -305,7 +305,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-ink-500">
       <Header
         active={screen}
         onNavigate={setScreen}
@@ -322,13 +322,13 @@ function App() {
       />
 
       {loadError && (
-        <div className="mx-auto mt-4 max-w-3xl rounded-lg border border-danger-200 bg-danger-50 px-4 py-3 text-sm text-danger-700">
+        <div className="mx-auto mt-4 max-w-3xl rounded-lg border border-danger-500/30 bg-danger-500/10 px-4 py-3 text-sm text-danger-300">
           {loadError}
         </div>
       )}
 
       {saving && (
-        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-lg bg-slate-800 px-4 py-2 text-sm text-white shadow-lg">
+        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-lg bg-ink-300 px-4 py-2 text-sm text-white shadow-lg shadow-black/40">
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
           Saving...
         </div>
@@ -388,7 +388,7 @@ function App() {
       {/* Empty state for traceability/review when no data */}
       {(screen === 'traceability' || screen === 'review') && !hasData && (
         <div className="mx-auto max-w-md px-4 py-20 text-center">
-          <p className="text-lg font-medium text-slate-700">
+          <p className="text-lg font-medium text-slate-300">
             {selectedProjectId
               ? 'No document loaded for this project yet'
               : 'No project selected'}
@@ -400,7 +400,7 @@ function App() {
           </p>
           <button
             onClick={() => setScreen('document')}
-            className="mt-4 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
+            className="mt-4 rounded-lg bg-primary-500 px-4 py-2 text-sm font-medium text-ink-700 hover:bg-primary-400"
           >
             Go to Document
           </button>
