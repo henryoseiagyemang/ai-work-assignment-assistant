@@ -1,0 +1,2 @@
+[functions.extract-requirements]
+verify_jwt = false

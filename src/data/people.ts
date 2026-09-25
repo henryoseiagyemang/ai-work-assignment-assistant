@@ -1,0 +1,68 @@
+import type { Person } from '../types';
+
+export const seedPeople: Person[] = [
+  {
+    id: 'P1',
+    name: 'Ama Osei',
+    role: 'employee',
+    skills: ['React', 'TypeScript', 'CSS', 'Accessibility'],
+    level: 4,
+    availability: 'available',
+  },
+  {
+    id: 'P2',
+    name: 'Marcus Chen',
+    role: 'employee',
+    skills: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+    level: 4,
+    availability: 'available',
+  },
+  {
+    id: 'P3',
+    name: 'Priya Nair',
+    role: 'employee',
+    skills: ['UI Design', 'CSS', 'Accessibility', 'User Research'],
+    level: 3,
+    availability: 'available',
+  },
+  {
+    id: 'P4',
+    name: 'Diego Santos',
+    role: 'employee',
+    skills: ['Node.js', 'PostgreSQL', 'Python', 'Testing'],
+    level: 5,
+    availability: 'available',
+  },
+  {
+    id: 'P5',
+    name: 'Yuki Tanaka',
+    role: 'contractor',
+    skills: ['iOS', 'Swift', 'React Native'],
+    level: 4,
+    availability: 'partially',
+  },
+  {
+    id: 'P6',
+    name: 'Fatima Al-Rashid',
+    role: 'contractor',
+    skills: ['Accessibility', 'Testing', 'User Research'],
+    level: 4,
+    availability: 'available',
+  },
+  {
+    id: 'P7',
+    name: 'Liam Murphy',
+    role: 'freelancer',
+    skills: ['CSS', 'UI Design', 'React', 'Documentation'],
+    level: 2,
+    availability: 'available',
+  },
+  {
+    id: 'P8',
+    name: 'Sofia Rossi',
+    role: 'employee',
+    skills: ['Security', 'Node.js', 'PostgreSQL', 'Testing'],
+    level: 5,
+    availability: 'unavailable',
+  },
+];
