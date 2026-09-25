@@ -115,7 +115,7 @@ export default function DocumentScreen({
   const currentItems = extracted?.items.length ? extracted.items : workItems;
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       {!selectedProjectName && (
         <div className="mb-6 flex items-start gap-3 rounded-lg border border-warning-500/30 bg-warning-500/10 px-4 py-3 text-sm text-warning-300">
           <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
@@ -153,14 +153,14 @@ export default function DocumentScreen({
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Paste your numbered requirements here, e.g.&#10;1. The system must...&#10;2. Users should be able to...&#10;3. ..."
-            className="h-64 w-full resize-none rounded-lg border border-ink-200 bg-ink-500 p-3 font-mono text-sm text-slate-300 placeholder:text-slate-600 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+            className="h-80 w-full resize-none rounded-lg border border-ink-200 bg-ink-500 p-3 font-mono text-sm text-slate-300 placeholder:text-slate-600 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
           />
 
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <button
               onClick={handleExtract}
               disabled={!text.trim() || extracting}
-              className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 px-4 py-2 text-sm font-medium text-ink-700 transition-all hover:from-primary-400 hover:to-primary-500 disabled:cursor-not-allowed disabled:opacity-50 disabled:saturate-50"
+              className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary-400 to-primary-600 px-4 py-2 text-sm font-medium text-ink-700 transition-all hover:from-primary-300 hover:to-primary-500 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 disabled:cursor-not-allowed disabled:opacity-50 disabled:saturate-50"
             >
               {extracting ? (
                 <>
@@ -175,7 +175,7 @@ export default function DocumentScreen({
               )}
             </button>
 
-            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-ink-200 bg-ink-300 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-ink-200">
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-ink-200 bg-ink-300 px-4 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-ink-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40">
               <Upload size={16} />
               Upload .txt
               <input
@@ -189,8 +189,8 @@ export default function DocumentScreen({
           </div>
 
           {fileName && (
-            <p className="mt-2 text-xs text-slate-500">
-              Uploaded file: <span className="font-medium text-slate-400">{fileName}</span>
+            <p className="mt-2 text-xs text-slate-400">
+              Uploaded file: <span className="font-medium text-slate-300">{fileName}</span>
             </p>
           )}
 
@@ -218,7 +218,7 @@ export default function DocumentScreen({
             <Info size={18} className="text-slate-500" />
             <h3 className="font-semibold text-white">How It Works</h3>
           </div>
-          <ol className="space-y-3 text-sm text-slate-400">
+          <ol className="space-y-3 text-sm text-slate-300">
             <li className="flex gap-3">
               <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-500/15 text-xs font-semibold text-primary-400">
                 1
@@ -266,7 +266,7 @@ export default function DocumentScreen({
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-semibold text-white">
               Extracted Requirements
-              <span className="ml-2 text-sm font-normal text-slate-500">
+              <span className="ml-2 text-sm font-normal text-slate-400">
                 from "{currentSource}"
               </span>
               {extracted?.usedLLM && (
@@ -328,7 +328,7 @@ export default function DocumentScreen({
           {extracted ? (
             <button
               onClick={handleLoadExtracted}
-              className="mt-4 flex items-center gap-2 rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400"
+              className="mt-4 flex items-center gap-2 rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-medium text-ink-700 transition-all hover:bg-primary-400 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
             >
               Load {extracted.reqs.length} requirements into tool
               <span aria-hidden>→</span>
@@ -336,7 +336,7 @@ export default function DocumentScreen({
           ) : (
             <button
               onClick={onProceedToTraceability}
-              className="mt-4 flex items-center gap-2 rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400"
+              className="mt-4 flex items-center gap-2 rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-medium text-ink-700 transition-all hover:bg-primary-400 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
             >
               Continue to Traceability
               <span aria-hidden>→</span>

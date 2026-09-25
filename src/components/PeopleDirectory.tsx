@@ -18,7 +18,7 @@ export default function PeopleDirectory({ people, onManageClick }: PeopleDirecto
       <div className="mb-3 flex items-center gap-2">
         <Users size={18} className="text-primary-400" />
         <h3 className="font-semibold text-white">People Directory</h3>
-        <span className="badge bg-ink-100 text-slate-400">
+        <span className="badge bg-ink-100 text-slate-300">
           {people.length}
         </span>
       </div>
@@ -26,7 +26,7 @@ export default function PeopleDirectory({ people, onManageClick }: PeopleDirecto
         {people.map((person) => (
           <div
             key={person.id}
-            className="rounded-lg border border-ink-200 bg-ink-300/60 p-3"
+            className="card-hover rounded-lg border border-ink-200 bg-ink-300/60 p-3"
           >
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-white">
@@ -49,7 +49,7 @@ export default function PeopleDirectory({ people, onManageClick }: PeopleDirecto
       {onManageClick && (
         <button
           onClick={onManageClick}
-          className="mt-3 w-full rounded-lg border border-primary-500/30 bg-primary-500/10 px-3 py-2 text-sm font-medium text-primary-300 transition-colors hover:bg-primary-500/20"
+          className="mt-3 w-full rounded-lg border border-primary-500/30 bg-primary-500/10 px-3 py-2 text-sm font-medium text-primary-300 transition-all hover:bg-primary-500/20 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
         >
           Manage People
         </button>

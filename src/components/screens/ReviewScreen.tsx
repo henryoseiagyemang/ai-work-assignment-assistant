@@ -115,7 +115,9 @@ export default function ReviewScreen({
             <div key={theme} className="card overflow-hidden">
               <button
                 onClick={() => toggleTheme(theme)}
-                className="flex w-full items-center justify-between border-b border-ink-200 bg-ink-300/60 px-5 py-3 text-left transition-colors hover:bg-ink-300"
+                aria-expanded={!collapsed}
+                aria-controls={`theme-${theme}`}
+                className="flex w-full items-center justify-between border-b border-ink-100 bg-ink-300/60 px-5 py-3 text-left transition-colors hover:bg-ink-300 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
               >
                 <div className="flex items-center gap-2">
                   {collapsed ? (
@@ -131,7 +133,7 @@ export default function ReviewScreen({
               </button>
 
               {!collapsed && (
-                <div className="divide-y divide-ink-200">
+                <div id={`theme-${theme}`} className="divide-y divide-ink-100">
                   {items.map((item) => {
                     const assignment = assignments.get(assignmentKey(projectId, item.id));
                     if (!assignment) return null;
@@ -141,7 +143,7 @@ export default function ReviewScreen({
                     return (
                       <div key={item.id} className="px-5 py-4">
                         {/* Title row */}
-                        <div className="flex items-start justify-between gap-4">
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                           <div className="flex-1">
                             <div className="flex items-center gap-2">
                               <span className="font-mono text-xs font-semibold text-primary-400">
@@ -163,7 +165,7 @@ export default function ReviewScreen({
 
                         {/* Skills row */}
                         <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                          <span className="text-xs text-slate-500">
+                          <span className="text-xs text-slate-400">
                             Required skills:
                           </span>
                           {item.requiredSkills.map((skill) => (
@@ -173,14 +175,14 @@ export default function ReviewScreen({
 
                         {/* Requirement links */}
                         <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                          <span className="text-xs text-slate-500">
+                          <span className="text-xs text-slate-400">
                             From:
                           </span>
                           {item.requirementIds.map((rid) => (
                             <span
                               key={rid}
                               title={reqText(rid)}
-                              className="cursor-help border-b border-dashed border-ink-200 font-mono text-xs text-slate-500"
+                              className="cursor-help border-b border-dashed border-ink-100 font-mono text-xs text-slate-400"
                             >
                               {rid}
                             </span>
@@ -214,7 +216,7 @@ export default function ReviewScreen({
 
                           {assignment.status === 'overridden' &&
                             assignment.overriddenReason && (
-                              <p className="mt-2 border-t border-ink-200 pt-2 text-xs text-warning-300">
+                              <p className="mt-2 border-t border-ink-100 pt-2 text-xs text-warning-300">
                                 Override reason: {assignment.overriddenReason}
                               </p>
                             )}
@@ -227,7 +229,7 @@ export default function ReviewScreen({
                               {assignment.proposedPersonId && (
                                 <button
                                   onClick={() => onApprove(item.id)}
-                                  className="flex items-center gap-1.5 rounded-lg bg-accent-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-accent-700"
+                                  className="flex items-center gap-1.5 rounded-lg bg-accent-600 px-3 py-1.5 text-sm font-medium text-white transition-all hover:bg-accent-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500/40"
                                 >
                                   <Check size={14} />
                                   Approve
@@ -237,7 +239,8 @@ export default function ReviewScreen({
                                 onClick={() =>
                                   setOverrideTarget(isOverrideOpen ? null : item.id)
                                 }
-                                className="flex items-center gap-1.5 rounded-lg border border-ink-200 bg-ink-300 px-3 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:bg-ink-200"
+                                className="flex items-center gap-1.5 rounded-lg border border-ink-200 bg-ink-300 px-3 py-1.5 text-sm font-medium text-slate-300 transition-all hover:bg-ink-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
+                                aria-label="Reassign work item"
                               >
                                 <UserCog size={14} />
                                 Reassign
@@ -250,7 +253,8 @@ export default function ReviewScreen({
                               onClick={() =>
                                 setOverrideTarget(isOverrideOpen ? null : item.id)
                               }
-                              className="flex items-center gap-1.5 rounded-lg border border-ink-200 bg-ink-300 px-3 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:bg-ink-200"
+                              className="flex items-center gap-1.5 rounded-lg border border-ink-200 bg-ink-300 px-3 py-1.5 text-sm font-medium text-slate-300 transition-all hover:bg-ink-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
+                              aria-label="Change assignment"
                             >
                               <UserCog size={14} />
                               Change
@@ -383,7 +387,7 @@ function OverridePanel({
         <div className="flex justify-end gap-2">
           <button
             onClick={onCancel}
-            className="rounded-lg border border-ink-200 bg-ink-300 px-3 py-1.5 text-sm font-medium text-slate-400 transition-colors hover:bg-ink-200"
+            className="rounded-lg border border-ink-200 bg-ink-300 px-3 py-1.5 text-sm font-medium text-slate-400 transition-all hover:bg-ink-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
           >
             Cancel
           </button>
@@ -392,7 +396,7 @@ function OverridePanel({
               selectedId && onConfirm(selectedId, reason || 'Manual override')
             }
             disabled={!selectedId}
-            className="rounded-lg bg-primary-500 px-3 py-1.5 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400 disabled:opacity-50"
+            className="rounded-lg bg-primary-500 px-3 py-1.5 text-sm font-medium text-ink-700 transition-all hover:bg-primary-400 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 disabled:opacity-50"
           >
             Confirm Reassignment
           </button>

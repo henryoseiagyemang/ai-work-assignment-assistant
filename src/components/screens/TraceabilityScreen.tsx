@@ -28,7 +28,7 @@ export default function TraceabilityScreen({
     workItems.filter((wi) => wi.requirementIds.includes(reqId));
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-white">Traceability Report</h2>
         <p className="mt-1 text-sm text-slate-400">
@@ -86,24 +86,24 @@ export default function TraceabilityScreen({
 
       {/* Coverage summary */}
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
-        <div className="card p-4">
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+        <div className="card-sm p-4 card-hover">
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
             Total Requirements
           </p>
           <p className="mt-1 text-2xl font-bold text-white">
             {requirements.length}
           </p>
         </div>
-        <div className="card p-4">
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+        <div className="card-sm p-4 card-hover">
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
             Covered
           </p>
           <p className="mt-1 text-2xl font-bold text-accent-400">
             {covered.length}
           </p>
         </div>
-        <div className="card p-4">
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+        <div className="card-sm p-4 card-hover">
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
             Coverage
           </p>
           <div className="mt-2 flex items-center gap-2">
@@ -127,7 +127,7 @@ export default function TraceabilityScreen({
             Requirement → Work Item Mapping
           </h3>
         </div>
-        <div className="divide-y divide-ink-200">
+        <div className="divide-y divide-ink-100">
           {requirements.map((req) => {
             const items = itemsForReq(req.id);
             const isCovered = items.length > 0;
@@ -176,7 +176,7 @@ export default function TraceabilityScreen({
       <div className="mt-6 flex justify-end">
         <button
           onClick={onProceedToReview}
-          className="flex items-center gap-2 rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400"
+          className="flex items-center gap-2 rounded-lg bg-primary-500 px-5 py-2.5 text-sm font-medium text-ink-700 transition-all hover:bg-primary-400 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
         >
           Review & Assign Work Items
           <ArrowRight size={16} />

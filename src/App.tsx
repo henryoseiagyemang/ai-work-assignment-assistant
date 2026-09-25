@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
+import { FileText } from 'lucide-react';
 import type { Requirement, WorkItem, Assignment, Person, Project, SeedRequirement, SeedWorkItem } from './types';
 import { assignmentKey } from './types';
 import { seedPeople } from './data/people';
@@ -296,9 +297,9 @@ function App() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-ink-500">
-        <div className="text-center">
-          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-ink-200 border-t-primary-500" />
-          <p className="mt-3 text-sm text-slate-500">Loading...</p>
+        <div className="animate-fade-in text-center">
+          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-ink-200 border-t-primary-500" />
+          <p className="mt-4 text-sm text-slate-400">Loading...</p>
         </div>
       </div>
     );
@@ -328,14 +329,14 @@ function App() {
       )}
 
       {saving && (
-        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-lg bg-ink-300 px-4 py-2 text-sm text-white shadow-lg shadow-black/40">
+        <div className="fixed bottom-4 right-4 z-50 flex animate-slide-up items-center gap-2 rounded-lg bg-ink-300 px-4 py-2 text-sm text-white shadow-lg shadow-black/40">
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
           Saving...
         </div>
       )}
 
       {screen === 'document' && (
-        <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
+        <div key="screen-document" className="animate-fade-in grid gap-6 lg:grid-cols-[1fr_320px]">
           <DocumentScreen
             sourceName={sourceName}
             requirements={requirements}
@@ -352,15 +353,17 @@ function App() {
       )}
 
       {screen === 'traceability' && hasData && (
+        <div key="screen-traceability" className="animate-fade-in">
         <TraceabilityScreen
           requirements={requirements}
           workItems={workItems}
           onProceedToReview={() => setScreen('review')}
         />
+        </div>
       )}
 
       {screen === 'review' && hasData && (
-        <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
+        <div key="screen-review" className="animate-fade-in grid gap-6 lg:grid-cols-[1fr_300px]">
           <ReviewScreen
             workItems={workItems}
             requirements={requirements}
@@ -377,30 +380,35 @@ function App() {
       )}
 
       {screen === 'people' && (
+        <div key="screen-people" className="animate-fade-in">
         <PeopleScreen
           people={people}
           onAdd={handleAddPerson}
           onUpdate={handleUpdatePerson}
           onDelete={handleDeletePerson}
         />
+        </div>
       )}
 
       {/* Empty state for traceability/review when no data */}
       {(screen === 'traceability' || screen === 'review') && !hasData && (
-        <div className="mx-auto max-w-md px-4 py-20 text-center">
-          <p className="text-lg font-medium text-slate-300">
+        <div className="animate-fade-in mx-auto max-w-md px-4 py-20 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-ink-200 bg-ink-400 shadow-lg shadow-black/20">
+            <FileText size={32} className="text-slate-500" />
+          </div>
+          <p className="text-lg font-semibold text-slate-200">
             {selectedProjectId
               ? 'No document loaded for this project yet'
               : 'No project selected'}
           </p>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-slate-400">
             {selectedProjectId
               ? 'Go to the Document tab to load the sample or paste your own requirements.'
               : 'Create or select a project from the header to get started.'}
           </p>
           <button
             onClick={() => setScreen('document')}
-            className="mt-4 rounded-lg bg-primary-500 px-4 py-2 text-sm font-medium text-ink-700 hover:bg-primary-400"
+            className="btn-primary mt-5"
           >
             Go to Document
           </button>

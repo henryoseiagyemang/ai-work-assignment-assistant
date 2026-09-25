@@ -7,6 +7,7 @@ import {
   Loader2,
   AlertCircle,
   Check,
+  Users,
 } from 'lucide-react';
 import type { Person, Role, Availability } from '../../types';
 import {
@@ -140,7 +141,7 @@ export default function PeopleScreen({
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-2xl font-bold text-white">People Directory</h2>
@@ -152,7 +153,7 @@ export default function PeopleScreen({
         <button
           onClick={openAddForm}
           disabled={showForm}
-          className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 px-4 py-2 text-sm font-medium text-ink-700 transition-all hover:from-primary-400 hover:to-primary-500 disabled:opacity-50"
+          className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary-400 to-primary-600 px-4 py-2 text-sm font-medium text-ink-700 transition-all hover:from-primary-300 hover:to-primary-500 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 disabled:opacity-50"
         >
           <UserPlus size={16} />
           Add Person
@@ -174,7 +175,8 @@ export default function PeopleScreen({
             </h3>
             <button
               onClick={closeForm}
-              className="rounded-lg p-1 text-slate-500 transition-colors hover:bg-ink-200 hover:text-slate-300"
+              aria-label="Close form"
+              className="rounded-lg p-1 text-slate-400 transition-colors hover:bg-ink-200 hover:text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
             >
               <X size={18} />
             </button>
@@ -291,14 +293,14 @@ export default function PeopleScreen({
           <div className="mt-5 flex justify-end gap-2">
             <button
               onClick={closeForm}
-              className="rounded-lg border border-ink-200 bg-ink-300 px-4 py-2 text-sm font-medium text-slate-400 transition-colors hover:bg-ink-200"
+              className="rounded-lg border border-ink-200 bg-ink-300 px-4 py-2 text-sm font-medium text-slate-400 transition-all hover:bg-ink-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
             >
               Cancel
             </button>
             <button
               onClick={handleSubmit}
               disabled={saving || !form.name.trim()}
-              className="flex items-center gap-2 rounded-lg bg-primary-500 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-primary-400 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-primary-500 px-4 py-2 text-sm font-medium text-ink-700 transition-all hover:bg-primary-400 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 disabled:opacity-50"
             >
               {saving ? (
                 <>
@@ -318,12 +320,24 @@ export default function PeopleScreen({
 
       {people.length === 0 && !showForm ? (
         <div className="card p-12 text-center">
-          <p className="text-lg font-medium text-slate-300">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-ink-200 bg-ink-300 shadow-md shadow-black/20">
+            <Users size={32} className="text-slate-500" />
+          </div>
+          <p className="text-lg font-semibold text-slate-200">
             No people yet
           </p>
-          <p className="mt-1 text-sm text-slate-500">
-            Click "Add Person" to add your first team member.
+          <p className="mt-2 text-sm text-slate-400">
+            Add your first team member to start assigning work items.
           </p>
+          <button
+            onClick={openAddForm}
+            className="btn-primary mt-5"
+          >
+            <span className="flex items-center gap-2">
+              <UserPlus size={16} />
+              Add Person
+            </span>
+          </button>
         </div>
       ) : (
         <div className="grid gap-3 sm:grid-cols-2">
@@ -359,7 +373,8 @@ export default function PeopleScreen({
                       onClick={() => openEditForm(person)}
                       disabled={isDeleting || saving}
                       title="Edit"
-                      className="rounded-lg p-1.5 text-slate-500 transition-colors hover:bg-ink-200 hover:text-primary-400 disabled:opacity-50"
+                      aria-label={`Edit ${person.name}`}
+                      className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-ink-200 hover:text-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 disabled:opacity-50"
                     >
                       <Pencil size={16} />
                     </button>
@@ -378,7 +393,8 @@ export default function PeopleScreen({
                         </button>
                         <button
                           onClick={() => setDeleteConfirm(null)}
-                          className="rounded-lg p-1 text-slate-500 transition-colors hover:bg-ink-200 hover:text-slate-300"
+                          aria-label="Cancel delete"
+                          className="rounded-lg p-1 text-slate-400 transition-colors hover:bg-ink-200 hover:text-slate-200"
                         >
                           <X size={14} />
                         </button>
