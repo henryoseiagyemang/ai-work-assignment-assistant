@@ -41,11 +41,20 @@ export function extractRequirements(text: string, sourceName: string): SeedRequi
 }
 
 /**
- * Generates work items from requirements using a simple heuristic.
- * Fallback only — the LLM edge function is the primary path.
+ * Generates a default work item for each requirement.
+ * Used as a fallback when the LLM edge function is unavailable,
+ * ensuring every requirement has at least one matching work item.
  */
-export function generateWorkItems(_requirements: SeedRequirement[]): SeedWorkItem[] {
-  return [];
+export function generateWorkItems(requirements: SeedRequirement[]): SeedWorkItem[] {
+  return requirements.map((req, i) => ({
+    id: `W${i + 1}`,
+    title: req.text.slice(0, 60),
+    description: `Auto-generated work item to address requirement ${req.id}.`,
+    difficulty: 3,
+    requiredSkills: [],
+    requirementIds: [req.id],
+    theme: 'General',
+  }));
 }
 
 interface LLMExtractionResponse {

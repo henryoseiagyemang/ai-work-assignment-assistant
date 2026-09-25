@@ -50,7 +50,7 @@ export default function TraceabilityScreen({
             <p className="text-sm text-danger-700">
               {uncovered.length === 0
                 ? 'All requirements have at least one work item.'
-                : `${uncovered.length} requirement${uncovered.length > 1 ? 's' : ''} have no work items generated against them.`}
+                : `${uncovered.length} requirement${uncovered.length > 1 ? 's' : ''} have no work items generated against them. This should not happen — try re-extracting the document.`}
             </p>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function TraceabilityScreen({
                 <div className="flex-1">
                   <p className="text-sm text-slate-800">{req.text}</p>
                   <p className="mt-1 text-xs text-danger-600">
-                    No work items generated for this requirement.
+                    No work items generated for this requirement. Try re-extracting the document.
                   </p>
                 </div>
               </div>

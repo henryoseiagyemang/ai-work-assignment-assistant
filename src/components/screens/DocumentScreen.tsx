@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Upload, FileText, Sparkles, Info, Loader2, AlertCircle } from 'lucide-react';
 import type { SeedRequirement, SeedWorkItem } from '../../types';
-import { extractRequirements, extractWithLLM } from '../../utils/extractor';
+import { extractRequirements, extractWithLLM, generateWorkItems } from '../../utils/extractor';
 
 interface DocumentScreenProps {
   sourceName: string;
@@ -65,14 +65,14 @@ export default function DocumentScreen({
           return;
         }
         setUsedFallback(true);
-        setExtracted({ reqs, items: [], source, usedLLM: false });
+        setExtracted({ reqs, items: generateWorkItems(reqs), source, usedLLM: false });
       }
     } catch (err) {
       // Fall back to local parser on LLM error
       const reqs = extractRequirements(text, source);
       if (reqs.length > 0) {
         setUsedFallback(true);
-        setExtracted({ reqs, items: [], source, usedLLM: false });
+        setExtracted({ reqs, items: generateWorkItems(reqs), source, usedLLM: false });
       } else {
         setExtractError(
           err instanceof Error
@@ -199,8 +199,8 @@ export default function DocumentScreen({
               <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
               <span>
                 AI extraction unavailable — used the built-in text parser instead.
-                No work items were generated. Add a Groq API key to enable
-                AI-powered extraction and work item generation.
+                A default work item was generated for each requirement. Add a Groq
+                API key to enable AI-powered extraction with smarter work item grouping.
               </span>
             </div>
           )}

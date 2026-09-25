@@ -35,7 +35,7 @@ const SYSTEM_PROMPT = `You are a technical project analyst. Given a requirements
    - Have requirement_ids: an array of requirement IDs this work item addresses (e.g. ["R1"] or ["R1", "R3"])
    - Have a theme: a short grouping label (e.g. "Frontend UI", "Security", "Backend & Data", "Mobile Development")
 
-Not every requirement needs a work item, and a work item can address multiple requirements. Use your judgment to group related requirements into single work items where it makes sense.
+Every requirement MUST be addressed by at least one work item. No requirement may be left without a work item. A work item can address multiple requirements — group related requirements into single work items where it makes sense — but ensure every requirement ID appears in at least one work item's requirement_ids array.
 
 You MUST respond with ONLY valid JSON in this exact format, no other text:
 {
@@ -134,20 +134,44 @@ Deno.serve(async (req: Request) => {
       );
     }
 
+    const extractedReqs = parsed.requirements.map((r) => ({
+      id: r.id,
+      text: r.text,
+    }));
+
+    const extractedItems = (parsed.work_items || []).map((w) => ({
+      id: w.id,
+      title: w.title,
+      description: w.description,
+      difficulty: w.difficulty,
+      requiredSkills: w.required_skills || [],
+      requirementIds: w.requirement_ids || [],
+      theme: w.theme,
+    }));
+
+    // Safety-net: ensure every requirement ID is covered by at least one work item.
+    // If the AI missed any, auto-generate a default work item for each uncovered requirement.
+    const coveredIds = new Set(extractedItems.flatMap((w) => w.requirementIds));
+    let fallbackCounter = extractedItems.length;
+    for (const req of extractedReqs) {
+      if (!coveredIds.has(req.id)) {
+        fallbackCounter++;
+        const fallbackId = `W${fallbackCounter}`;
+        extractedItems.push({
+          id: fallbackId,
+          title: req.text.slice(0, 60),
+          description: `Auto-generated work item to ensure full requirement coverage. Address requirement ${req.id}.`,
+          difficulty: 3,
+          requiredSkills: [],
+          requirementIds: [req.id],
+          theme: "General",
+        });
+      }
+    }
+
     const result = {
-      requirements: parsed.requirements.map((r) => ({
-        id: r.id,
-        text: r.text,
-      })),
-      workItems: (parsed.work_items || []).map((w) => ({
-        id: w.id,
-        title: w.title,
-        description: w.description,
-        difficulty: w.difficulty,
-        requiredSkills: w.required_skills || [],
-        requirementIds: w.requirement_ids || [],
-        theme: w.theme,
-      })),
+      requirements: extractedReqs,
+      workItems: extractedItems,
     };
 
     return new Response(
