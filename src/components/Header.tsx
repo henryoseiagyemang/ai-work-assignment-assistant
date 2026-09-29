@@ -93,7 +93,7 @@ export default function Header({
             </div>
             <div>
               <h1 className="text-sm font-semibold text-white sm:text-base">
-                Work Assignment Assistant
+                Bonarda Work Assistant
               </h1>
               <p className="hidden text-xs text-slate-400 sm:block">
                 Requirement-driven work decomposition & assignment
