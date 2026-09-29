@@ -1,4 +1,5 @@
 import type { Person, WorkItem, Assignment } from '../types';
+import { assignmentKey } from '../types';
 
 interface CandidateScore {
   person: Person;
@@ -138,7 +139,7 @@ export function computeAllProposals(
 ): Map<string, Assignment> {
   const map = new Map<string, Assignment>();
   for (const item of items) {
-    map.set(item.id, computeProposal(item, people));
+    map.set(assignmentKey(item.projectId, item.id), computeProposal(item, people));
   }
   return map;
 }
